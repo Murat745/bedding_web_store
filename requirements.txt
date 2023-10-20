@@ -2,9 +2,11 @@ asgiref==3.7.2
 certifi==2023.7.22
 charset-normalizer==3.3.0
 Django==4.2.6
+django-phonenumber-field==7.2.0
 flake8==6.1.0
 idna==3.4
 mccabe==0.7.0
+Pillow==10.1.0
 pycodestyle==2.11.1
 pyflakes==3.1.0
 requests==2.31.0
