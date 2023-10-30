@@ -9,9 +9,10 @@
 
 
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Вийти</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Вихід</a></li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Увійти</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Вхід</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Реєстрація</a></li>
                 {% endif %}
 
                 <li class="nav-item dropdown">

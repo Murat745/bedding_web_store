@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
+from .forms import SignUpForm
 from .models import Product
 
 
@@ -23,7 +24,7 @@ def login_user(request):
             messages.success(request, 'Ви успішно увійшли до облікового запису!')
             return redirect('home')
         else:
-            messages.success(request, 'Помилка авторизації! Спробуйте ще раз!')
+            messages.error(request, 'Помилка авторизації! Спробуйте ще раз!')
             return redirect('login')
     else:
         return render(request, 'login.html', {})
@@ -31,5 +32,23 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    messages.success(request, 'Ви вийшли з облікового запису! Дякуємо за увагу до нашої крамниці!')
+    messages.warning(request, 'Ви вийшли з облікового запису! Дякуємо за увагу до нашої крамниці!')
     return redirect('home')
+
+
+def register_user(request):
+    form = SignUpForm()
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, 'Ви успішно зареєструвалися! Ласкаво просимо!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Помилка реєстрації. Спробуйте ще')
+            return redirect('register')
+    return render(request, 'register.html', {'form': form})
