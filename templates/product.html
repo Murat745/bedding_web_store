@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="container">
+    <div class="card mb-3">
+  <img src="{{ product.image.url }}" class="card-img-bottom" alt="{{ product.name }}">
+  <div class="card-body">
+    <div class="text-center">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <p class="card-text">{{ product.description }}</p>
+
+    {% if product.is_sale %}
+
+        <div class="badge bg-info text-black position-absolute" style="top: 0.5rem; right: 0.5rem"> Знижка!!! </div>
+        <!-- Product price-->
+        <strike> {{ product.price }} грн </strike>
+        &nbsp
+        {{ product.sale_price }} грн
+
+    {% else %}
+        {{ product.price }} грн
+    {% endif %}
+    <br/><br/>
+    <br/><br/>
+    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'home' %}">На головну сторінку</a></div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

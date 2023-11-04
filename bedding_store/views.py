@@ -2,7 +2,23 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from .forms import SignUpForm
-from .models import Product
+from .models import Category, Product
+
+
+def category(request, foo):
+    foo = foo.replace('-', ' ')
+    try:
+        category = Category.objects.get(name=foo)
+        products = Product.objects.filter(category=category)
+        return render(request, 'category.html', {'products': products, 'category': category})
+    except:
+        messages.error(request, 'Такої категорії не існує!')
+        return redirect('home')
+
+
+def product(request, pk):
+    product = Product.objects.get(id=pk)
+    return render(request, 'product.html', {'product': product})
 
 
 def home(request):

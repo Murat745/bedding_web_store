@@ -4,9 +4,20 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'home' %}">Головна сторінка</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Про нас</a></li>
-
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Категорії</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'home' %}">Всі товари</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Домашній-текстиль' %}">Домашній текстиль</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Комплекти-постільної-білизни' %}">Комплекти постільної білизни</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Наволочки' %}">Наволочки</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Підковдри' %}">Підковдри</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Простирадла' %}">Простирадла</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Послуги-з-ремонту' %}">Послуги з ремонту</a></li>
+                    </ul>
+                </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Про нас</a></li>
 
                 {% if user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Вихід</a></li>
@@ -15,15 +26,6 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Реєстрація</a></li>
                 {% endif %}
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Крамниця</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Всі товари</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Популярні товари</a></li>
-                        <li><a class="dropdown-item" href="#!">Нові надходження</a></li>
-                    </ul>
-                </li>
             </ul>
             <form class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
