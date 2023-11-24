@@ -10,7 +10,7 @@ def category(request, foo):
     try:
         category = Category.objects.get(name=foo)
         products = Product.objects.filter(category=category)
-        return render(request, 'category.html', {'products': products, 'category': category})
+        return render(request, 'bedding_store/category.html', {'products': products, 'category': category})
     except:
         messages.error(request, 'Такої категорії не існує!')
         return redirect('home')
@@ -18,16 +18,16 @@ def category(request, foo):
 
 def product(request, pk):
     product = Product.objects.get(id=pk)
-    return render(request, 'product.html', {'product': product})
+    return render(request, 'bedding_store/product.html', {'product': product})
 
 
 def home(request):
     products = Product.objects.all()
-    return render(request, 'home.html', {'products': products})
+    return render(request, 'bedding_store/home.html', {'products': products})
 
 
 def about(request):
-    return render(request, 'about.html', {})
+    return render(request, 'bedding_store/about.html', {})
 
 
 def login_user(request):
@@ -43,7 +43,7 @@ def login_user(request):
             messages.error(request, 'Помилка авторизації! Спробуйте ще раз!')
             return redirect('login')
     else:
-        return render(request, 'login.html', {})
+        return render(request, 'bedding_store/login.html', {})
 
 
 def logout_user(request):
@@ -67,4 +67,4 @@ def register_user(request):
         else:
             messages.error(request, 'Помилка реєстрації. Спробуйте ще')
             return redirect('register')
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'bedding_store/register.html', {'form': form})

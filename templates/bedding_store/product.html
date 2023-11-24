@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'bedding_store/base.html' %}
 {% block content %}
 
 
@@ -17,17 +17,47 @@
         <strike> {{ product.price }} грн </strike>
         &nbsp
         {{ product.sale_price }} грн
-
+        <br/> Код товару: {{ product.id }}
     {% else %}
         {{ product.price }} грн
+        <br/> Код товару: {{ product.id }}
     {% endif %}
     <br/><br/>
     <br/><br/>
     <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
     <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'home' %}">На головну сторінку</a></div>
+        <br/>
+    <button type="button" value="{{ product.id }}" class="btn btn-outline-dark mt-auto" id="add-cart">Додати в кошик</button>
         </div>
     </div>
 </div>
 </div>
+
+<script>
+    $(document).on('click', '#add-cart', function (e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'cart_add' %}",
+            data: {
+                product_id: $('#add-cart').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+
+            success: function (json){
+                //console.log(json)
+                document.getElementById('cart_quantity').
+                    textContent = json.qty
+                },
+            error: function (xhr, errmsg, err){
+                }
+        })
+    })
+
+
+
+
+</script>
 
 {% endblock %}
