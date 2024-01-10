@@ -25,6 +25,20 @@
         <br/> Код товару: {{ product.id }}
     {% endif %}
     <br/><br/>
+    <div class="row justify-content-center">
+                       <div class="col-md-2">Кількість</div>
+                        <div class="col-md-2">
+    <select class="form-select form-select-sm" id="qty-cart">
+     <option value="1">1</option>
+     <option value="2">2</option>
+     <option value="3">3</option>
+     <option value="3">4</option>
+     <option value="3">5</option>
+     <option value="3">6</option>
+     <option value="3">7</option>
+    </select>
+                        </div>
+                       </div>
     <br/><br/>
     <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'home' %}">На головну сторінку</a></div>
         <br/>
@@ -43,6 +57,7 @@
             url: "{% url 'cart_add' %}",
             data: {
                 product_id: $('#add-cart').val(),
+                product_qty: $('#qty-cart option:selected').text(),
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
