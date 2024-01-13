@@ -38,29 +38,34 @@
     {% endif %}
     <br/><br/>
      <div class="row justify-content-center">
-                       <div class="col-md-2">Кількість</div>
-                        <div class="col-md-2">
-    <select class="form-select form-select-sm" id="select{{product.id}}">
-              {% for key, value in quantities.items %}
+       <div class="col-md-2">Кількість</div>
+       <div class="col-md-2">
+         <select class="form-select form-select-sm" id="select{{product.id}}">
+           {% for key, value in quantities.items %}
            {% if key == product.id|slugify %}
-        <option selected> {{ value }} </option>
-        {% endif %}
-         {% endfor %}
+           <option selected> {{ value }} </option>
+           {% endif %}
+           {% endfor %}
 
-     <option value="1">1</option>
-     <option value="2">2</option>
-     <option value="3">3</option>
-     <option value="3">4</option>
-     <option value="3">5</option>
-     <option value="3">6</option>
-     <option value="3">7</option>
+           <option value="1">1</option>
+           <option value="2">2</option>
+           <option value="3">3</option>
+           <option value="4">4</option>
+           <option value="5">5</option>
+           <option value="6">6</option>
+           <option value="7">7</option>
     </select>
                         </div>
                        </div>
-    <br/><br/>
-    <a class="btn btn-outline-dark mt-auto" href="{% url 'home' %}">На головну</a>
-    <br/><br/>
-    <button type="button" data-index="{{ product.id }}" class="btn btn-outline-dark mt-auto update-cart">Оновити</button>
+    <br/>
+    <div class="row justify-content-center">
+      <div class="col-md-2">
+        <a class="btn btn-outline-dark mt-auto" href="{% url 'home' %}">На головну</a></div>
+      <div class="col-md-2">
+        <button type="button" data-index="{{ product.id }}" class="btn btn-outline-dark mt-auto update-cart">Оновити</button></div>
+      <div class="col-md-2">
+        <button type="button" data-index="{{ product.id }}" class="btn btn-danger mt-auto delete-product">Видалити</button></div>
+    </div>
                    </div>
                   </div>
                  </div>
@@ -69,14 +74,14 @@
             {% else %}
             <br/><br/><br/>
              <h3 style="text-align: center">В Вашому кошику поки що немає товарів...</h3>
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
             {% endif %}
 
         </div>
-<br/><br/>
+<br/>
 
 <script>
-    // Check if button pressed
+    // Update cart
     $(document).on('click', '.update-cart', function (e){
         e.preventDefault();
         // Grab the product id
@@ -103,7 +108,31 @@
         })
     })
 
+// Delete item from cart
+    $(document).on('click', '.delete-product', function (e){
+        e.preventDefault();
+        // Grab the product id
+        var productid = $(this).data('index');
 
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'cart_delete' %}",
+            data: {
+                product_id: $(this).data('index'),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+
+            success: function (json){
+                //console.log(json)
+                //document.getElementById('cart_quantity').
+                //textContent = json.qty
+                location.reload();
+                },
+            error: function (xhr, errmsg, err){
+                }
+        })
+    })
 
 
 </script>
