@@ -41,12 +41,12 @@ class Cart:
         total = 0
         for key, value in quantities.items():
             key = int(key)
-        for product in products:
-            if product.id == key:
-                if product.is_sale:
-                    total = total + value * product.sale_price
-                else:
-                    total = total + value * product.price
+            for product in products:
+                if product.id == key:
+                    if product.is_sale:
+                        total = total + (value * product.sale_price)
+                    else:
+                        total = total + (value * product.price)
         return total
 
     def update(self, product, quantity):

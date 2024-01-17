@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, render
 from .cart import Cart
 from bedding_store.models import Product
@@ -21,6 +22,7 @@ def cart_add(request):
         cart.add(product=product, quantity=product_qty)
         cart_quantity = cart.__len__()
         response = JsonResponse({'qty': cart_quantity})
+        messages.success(request, ('Товар успішно добавлено до кошику!'))
         return response
 
 
@@ -32,6 +34,7 @@ def cart_delete(request):
         cart.delete(product=product_id)
 
         response = JsonResponse({'product': product_id})
+        messages.success(request, ('Товар видалено з кошику!'))
         return response
 
 def cart_update(request):
@@ -42,4 +45,5 @@ def cart_update(request):
         cart.update(product=product_id, quantity=product_qty)
 
         response = JsonResponse({'qty': product_qty})
+        messages.success(request, ('Кошик оновлено!'))
         return response
