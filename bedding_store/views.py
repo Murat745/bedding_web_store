@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from .forms import SignUpForm, UpdateUserForm
@@ -69,6 +70,28 @@ def register_user(request):
             messages.error(request, 'Помилка реєстрації. Спробуйте ще')
             return redirect('register')
     return render(request, 'bedding_store/register.html', {'form': form})
+
+
+def update_password(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+        if request.method == 'POST':
+            form = PasswordChangeForm(current_user, request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Ваш пароль успішно змінено!')
+                return redirect('login')
+            else:
+                for error in list(form.errors.values()):
+                    messages.error(request, error)
+                    login(request, current_user)
+                    return redirect('update_user')
+        else:
+            form = PasswordChangeForm(current_user)
+            return render(request, 'bedding_store/update_password.html', {'form': form})
+    else:
+        messages.error(request, 'Увійдіть у Ваш обліковий запис!')
+        return redirect('login')
 
 
 def update_user(request):
