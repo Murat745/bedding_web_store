@@ -17,7 +17,7 @@ class Profile(models.Model):
     zipcode = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
-        return self.user.name
+        return self.user.username
 
 # Create a User Profile by default when user signs up
 
@@ -28,7 +28,7 @@ def create_profile(sender, instance, created, **kwargs):
         user_profile.save()
 
 # Automate the profile thing
-    post_save.connect(create_profile, sender=User)
+post_save.connect(create_profile, sender=User)
 
 
 # Categories of products
