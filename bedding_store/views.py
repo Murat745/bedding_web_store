@@ -3,8 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
-from .forms import SignUpForm, UpdateUserForm
-from .models import Category, Product
+from .forms import SignUpForm, UpdateUserForm, UserInfoForm
+from .models import Category, Product, Profile
 
 
 def category(request, foo):
@@ -70,6 +70,21 @@ def register_user(request):
             messages.error(request, 'Помилка реєстрації. Спробуйте ще')
             return redirect('register')
     return render(request, 'bedding_store/register.html', {'form': form})
+
+
+def update_info(request):
+    if request.user.is_authenticated:
+        user_info = Profile.objects.get(user__id=request.user.id)
+        form = UserInfoForm(request.POST or None, instance=user_info)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Вашу інформацію було оновлено!')
+            return redirect('home')
+        return render(request, 'bedding_store/update_info.html', {'form': form})
+    else:
+        messages.error(request, 'Увійдіть у Ваш обліковий запис!')
+        return redirect('login')
+
 
 
 def update_password(request):

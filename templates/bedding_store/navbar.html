@@ -20,8 +20,14 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Про нас</a></li>
 
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'update_user' %}">Профіль</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Вихід</a></li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" id=navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Профіль</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" href="{% url 'update_user' %}">Оновити профіль</a></li>
+                          <li><a class="dropdown-item" href="{% url 'update_info' %}">Оновити інфо користувача</a></li>
+                          <li><a class="dropdown-item" href="{% url 'logout' %}">Вихід</a></li>
+                        </ul>
+                    </li>
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Вхід</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Реєстрація</a></li>

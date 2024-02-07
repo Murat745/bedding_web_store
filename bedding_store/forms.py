@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
 from django.contrib.auth.models import User
+from .models import Profile
 
 
 class SignUpForm(UserCreationForm):
@@ -81,6 +82,40 @@ class UpdateUserForm(UserChangeForm):
                                              '<small>Може містити тільки до 150 знаків та символи @/./+/-/_.</small>'
                                              '</span>'
                                              )
+
+class UserInfoForm(forms.ModelForm):
+    phone = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Телефон'}),
+        required=False)
+    address1 = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Адреса 1'}),
+        required=False)
+    address2 = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Адреса 2'}),
+        required=False)
+    country = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Країна'}),
+        required=False)
+    city = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Місто'}),
+        required=False)
+    state = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Область'}),
+        required=False)
+    zipcode = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Поштовий індекс'}),
+        required=False)
+    class Meta:
+        model = Profile
+        fields = ('address1', 'address2', 'phone', 'city', 'state', 'zipcode')
+
 
 class ChangePasswordForm(SetPasswordForm):
     class Meta:
