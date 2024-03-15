@@ -2,9 +2,11 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.shortcuts import redirect, render
 from .forms import SignUpForm, UpdateUserForm, UserInfoForm
 from .models import Category, Product, Profile
+
 
 
 def category(request, foo):
@@ -86,7 +88,6 @@ def update_info(request):
         return redirect('login')
 
 
-
 def update_password(request):
     if request.user.is_authenticated:
         current_user = request.user
@@ -123,3 +124,18 @@ def update_user(request):
     else:
         messages.error(request, 'Увійдіть у Ваш обліковий запис!')
         return redirect('home')
+
+
+def search(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        # Querying the Products DB model
+        searched = Product.objects.filter(Q(name__icontains=searched) | Q(description__icontains=searched))
+        if not searched:
+            messages.error(request, 'Цей продукт не існує. Спробуйте ще..')
+            return render(request, 'bedding_store/search.html', {})
+        else:
+            return render(request, 'bedding_store/search.html', {'searched': searched})
+        return render(request, 'bedding_store/search.html', {'searched': searched})
+    else:
+        return render(request, 'bedding_store/search.html', {})

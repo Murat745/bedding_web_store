@@ -17,6 +17,7 @@
                         <li><a class="dropdown-item" href="{% url 'category' 'Послуги-з-ремонту' %}">Послуги з ремонту</a></li>
                     </ul>
                 </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Пошук</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Про нас</a></li>
 
                 {% if user.is_authenticated %}

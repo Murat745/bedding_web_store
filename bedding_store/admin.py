@@ -10,14 +10,18 @@ admin.site.register(Order)
 admin.site.register(Profile)
 
 # Mix Profile info and user info
+
+
 class ProfileInline(admin.StackedInline):
     model = Profile
+
 
 # Extend User model
 class UserAdmin(admin.ModelAdmin):
     model = User
     fields = ["username", "first_name", "last_name", "email"]
     inlines = [ProfileInline]
+
 
 # Unregister the old way
 admin.site.unregister(User)
