@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bedding_store',
     'cart',
+    'payment',
 ]
 
 MIDDLEWARE = [
