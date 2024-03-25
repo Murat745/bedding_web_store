@@ -6,9 +6,12 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from .forms import SignUpForm, UpdateUserForm, UserInfoForm
+
+from payment.forms import ShippingForm
+from payment.models import ShippingAddress
+
 from .models import Category, Product, Profile
 import json
-
 
 
 def category(request, foo):
@@ -93,13 +96,18 @@ def register_user(request):
 
 def update_info(request):
     if request.user.is_authenticated:
-        user_info = Profile.objects.get(user__id=request.user.id)
-        form = UserInfoForm(request.POST or None, instance=user_info)
-        if form.is_valid():
+        #  Get current user
+        current_user = Profile.objects.get(user__id=request.user.id)
+        #  Get current user's info
+        shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
+        form = UserInfoForm(request.POST or None, instance=current_user)
+        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
+        if form.is_valid() or shipping_form.is_valid():
             form.save()
+            shipping_form.save()
             messages.success(request, 'Вашу інформацію було оновлено!')
             return redirect('home')
-        return render(request, 'bedding_store/update_info.html', {'form': form})
+        return render(request, 'bedding_store/update_info.html', {'form': form, 'shipping_form': shipping_form})
     else:
         messages.error(request, 'Увійдіть у Ваш обліковий запис!')
         return redirect('login')
