@@ -71,7 +71,10 @@
                  </div>
                 </div>
             {% endfor %}
+            <div align="right">
             <h3>Сума Вашого замовлення: {{ totals }} грн.</h3>
+            <a href="% url 'checkout' %" class="btn btn-success">Перевірити замовлення</a>
+            </div>
             {% else %}
             <br/><br/><br/>
              <h3 style="text-align: center">В Вашому кошику поки що немає товарів...</h3>
