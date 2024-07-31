@@ -3,7 +3,7 @@
 {% block content %}
 
         <!-- Header-->
-        <header class="bg-dark py-1">
+        <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Перевірка замовлення</h1>
@@ -13,6 +13,33 @@
         </header>
         <br/>
         <div class="container">
-            STUFF
-        </div>
-{% endblock %}
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="card">
+                <div class="card-header">
+                  Деталі замовлення
+                </div>
+                <div class="card-body">
+                  {% for product in cart_products %}
+                    {{ product.name }}:
+                      {% if product.is_sale %}
+                        {{ product.sale_price }} грн
+                      {% else %} 
+                        {{ product.price }} грн
+                      {% endif %}
+                      <br/>
+                    <small>Кількість:
+                    {% for key, value in quantities.items %}
+                      {% if key == product.id|slugify %}
+                        {{ value }}
+                      {% endif %}
+                    {% endfor %}</small>
+                    <br/><br/>
+                  {% endfor %}
+                </div>
+              </div>    
+            </div>  
+          </div>
+        </div>    
+<br/><br/>
+{% endblock %}  
