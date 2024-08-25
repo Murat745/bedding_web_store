@@ -6,8 +6,8 @@
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Перевірка замовлення</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Основна інформація по замовленню</p>
+                    <h1 class="display-4 fw-bolder">Платіжні реквізити</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Інформація для сплати</p>
                 </div>
             </div>
         </header>
@@ -17,7 +17,7 @@
             <div class="col-md-6 offset-md-3">
               <div class="card">
                 <div class="card-header">
-                  Перевірка замовлення
+                  Реквізити для сплати
                 </div>
                 <div class="card-body">
                   {% for product in cart_products %}
@@ -47,14 +47,35 @@
                   Інформація про доставку
                 </div>
                 <div class="card-body">
-                  <form method="post" action="{% url 'billing_info' %}">
-                    {% csrf_token %}
-                    {{ shipping_form.as_p }}
+                  Name: {{ shipping_inf.shipping_full_name }}<br/>
+                  Email: {{ shipping_inf.shipping_email }}<br/>
+                  Address 1: {{ shipping_inf.shipping_address1 }}<br/>
+                  Address 2: {{ shipping_inf.shipping_address2 }}<br/>
+                  City: {{ shipping_inf.shipping_city }}<br/>
+                  State: {{ shipping_inf.shipping_state }}<br/>
+                  Zipcode: {{ shipping_inf.shipping_zipcode }}<br/>
+                  Country: {{ shipping_inf.shipping_country }}<br/>
+                  <br/>
+                  <a href="{% url 'checkout' %}" class="btn btn-danger"> Змінити інформацію про доставку </a>
+
                 </div>
               </div>
               <br/><br/>
-              <button type="submit" class="btn btn-primary"> До сплати </button>  
-                  </form>
+              <div class="card">
+                <div class="card-header">
+                  Інформація про оплату
+                </div>
+                <div class="card-body">
+                  {% csrf_token %}
+                  {{ billing_form.as_p }}
+                  <br/>
+                  <a href="{% url 'checkout' %}" class="btn btn-danger"> Редагувати </a>
+
+                </div>
+              </div>
+              <br/>
+              <button type="submit" class="btn btn-primary"> Сплатити </button>  
+                  
                   <br/><br/>      
             </div>  
           </div>
