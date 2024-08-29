@@ -66,16 +66,15 @@
                   Інформація про оплату
                 </div>
                 <div class="card-body">
-                  {% csrf_token %}
-                  {{ billing_form.as_p }}
-                  <br/>
-                  <a href="{% url 'checkout' %}" class="btn btn-danger"> Редагувати </a>
-
+                  <form method="post" action="{% url 'process_order' %}">
+                    {% csrf_token %}
+                    {{ billing_form.as_p }}
+                    <br/>
                 </div>
-              </div>
-              <br/>
+                </div>
+                <br/>
               <button type="submit" class="btn btn-primary"> Сплатити </button>  
-                  
+                  </form>
                   <br/><br/>      
             </div>  
           </div>

@@ -24,14 +24,14 @@ class ShippingAddress(models.Model):
     # Create a User Shipping Address by default when user signs up
 
 
-    def create_shipping_address(sender, instance, created, **kwargs):
-        if created:
-            user_shipping = ShippingAddress(user=instance)
-            user_shipping.save()
+def create_shipping_address(sender, instance, created, **kwargs):
+    if created:
+        user_shipping = ShippingAddress(user=instance)
+        user_shipping.save()
 
 
     # Automate the shipping thing
-    post_save.connect(create_shipping_address, sender=User)
+post_save.connect(create_shipping_address, sender=User)
 
 
 # Create Order Model
