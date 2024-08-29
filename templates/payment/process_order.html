@@ -1,0 +1,83 @@
+{% extends 'bedding_store/base.html' %}
+
+{% block content %}
+
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Обробка замовлення</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Інформація для сплати</p>
+                </div>
+            </div>
+        </header>
+        <br/>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="card">
+                <div class="card-header">
+                  Реквізити для сплати
+                </div>
+                <div class="card-body">
+                  {% for product in cart_products %}
+                    {{ product.name }}:
+                      {% if product.is_sale %}
+                        {{ product.sale_price }} грн
+                      {% else %} 
+                        {{ product.price }} грн
+                      {% endif %}
+                      <br/>
+                    <small>Кількість:
+                    {% for key, value in quantities.items %}
+                      {% if key == product.id|slugify %}
+                        {{ value }}
+                      {% endif %}
+                    {% endfor %}</small>
+                    <br/><br/><br/><br/>
+                  {% endfor %}
+                  <strong>Всього:    {{ totals }} грн</strong>
+                  <br/><br/>
+                  <a href="{% url 'cart_summary' %}" class="btn btn-danger"> Змінити замовлення </a>
+                </div>
+              </div>  
+              <br/><br/>
+              <div class="card">
+                <div class="card-header">
+                  Інформація про доставку
+                </div>
+                <div class="card-body">
+                  Name: {{ shipping_inf.shipping_full_name }}<br/>
+                  Email: {{ shipping_inf.shipping_email }}<br/>
+                  Address 1: {{ shipping_inf.shipping_address1 }}<br/>
+                  Address 2: {{ shipping_inf.shipping_address2 }}<br/>
+                  City: {{ shipping_inf.shipping_city }}<br/>
+                  State: {{ shipping_inf.shipping_state }}<br/>
+                  Zipcode: {{ shipping_inf.shipping_zipcode }}<br/>
+                  Country: {{ shipping_inf.shipping_country }}<br/>
+                  <br/>
+                  <a href="{% url 'checkout' %}" class="btn btn-danger"> Змінити інформацію про доставку </a>
+
+                </div>
+              </div>
+              <br/><br/>
+              <div class="card">
+                <div class="card-header">
+                  Інформація про оплату
+                </div>
+                <div class="card-body">
+                  <form method="post" action="% url 'process_order' %">
+                    {% csrf_token %}
+                    {{ billing_form.as_p }}
+                    <br/>
+                </div>
+                </div>
+                <br/>
+              <button type="submit" class="btn btn-primary"> Сплатити </button>  
+                  </form>
+                  <br/><br/>      
+            </div>  
+          </div>
+        </div>    
+<br/><br/>
+{% endblock %}  
