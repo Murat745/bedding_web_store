@@ -1,0 +1,56 @@
+{% extends 'bedding_store/base.html' %}
+{% block content %}
+
+<!-- Header-->
+        
+
+        <div class="container">
+        	<div class="row">
+        		<center>
+        			<div class="col-8">
+        				<br/><br/>
+<h3>Невідправлені замовлення</h3>
+<table class="table table-striped table-hover table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Замовлення</th>
+      <th scope="col">Ціна</th>
+      <th scope="col">Email клієнта</th>
+      <th scope="col">Дата відправлення</th>
+      <th scope="col">Відправлення</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for item in orders %}
+    <tr>
+      <td><a href="{% url 'orders' item.id %}">{{ item.id }}</a></td>
+      <td>{{ item.amount_paid }} грн</td>
+      <td>{{ item.email }}</td>
+      <td>{{ item.date_ordered }}</td>
+      <td>
+        <form method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="shipping_status" value="true">
+          <input type="hidden" name="num" value={{item.id}}>
+          <button type="Submit" class="btn btn-success btn-sm">Позначити як відправлене</button>
+        </form>
+
+
+      </td>
+    </tr>
+    {% endfor %}
+  
+    
+  </tbody>
+</table>
+
+
+
+<br/><br/>
+<br/><br/>
+        			</div>
+        		</center>
+        	</div>
+        </div>
+
+{% endblock %}
