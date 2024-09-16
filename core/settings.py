@@ -28,8 +28,8 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-CSRF_TRUSTED_ORIGINS = []
+ALLOWED_HOSTS = ['junction.proxy.rlwy.net:39255', 'https://junction.proxy.rlwy.net:39255']
+CSRF_TRUSTED_ORIGINS = ['junction.proxy.rlwy.net:39255', 'https://junction.proxy.rlwy.net:39255']
 
 # Application definition
 
