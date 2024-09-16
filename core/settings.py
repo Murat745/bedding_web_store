@@ -28,8 +28,8 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['junction.proxy.rlwy.net:39255', 'https://junction.proxy.rlwy.net:39255']
-CSRF_TRUSTED_ORIGINS = ['junction.proxy.rlwy.net:39255', 'https://junction.proxy.rlwy.net:39255']
+ALLOWED_HOSTS = ['meticulous-empathy.railway.internal', 'https://meticulous-empathy.railway.internal']
+CSRF_TRUSTED_ORIGINS = ['meticulous-empathy.railway.internal', 'https://meticulous-empathy.railway.internal']
 
 # Application definition
 
