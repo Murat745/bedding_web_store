@@ -26,10 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['https://meticulous-empathy.railway.internal']
-CSRF_TRUSTED_ORIGINS = ['https://meticulous-empathy.railway.internal']
+ALLOWED_HOSTS = ['*']
+
 
 # Application definition
 
@@ -85,11 +85,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),  # container_name
-        'PORT': os.getenv('DB_PORT'),  # expose
+        'NAME': os.getenv('PG_DB_NAME'),
+        'USER': os.getenv('PG_DB_USER'),
+        'PASSWORD': os.getenv('DB_PASS'),
+        'HOST': os.getenv('PG_DB_HOST'),  # container_name
+        'PORT': os.getenv('PG_DB_PORT'),  # expose
     }
 }
 
