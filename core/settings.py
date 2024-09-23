@@ -88,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('PG_DB_NAME'),
         'USER': os.getenv('PG_DB_USER'),
-        'PASSWORD': os.environ['DB_PASS'],
+        'PASSWORD': os.environ['DB_PASSWORD_MINE'],
         'HOST': os.getenv('PG_DB_HOST'),  # container_name
         'PORT': os.getenv('PG_DB_PORT'),  # expose
     }
