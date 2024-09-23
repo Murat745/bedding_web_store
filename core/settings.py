@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = ['beddingwebstore-production.up.railway.app', 'https://beddingwebstore-production.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['beddingwebstore-production.up.railway.app', 'https://beddingwebstore-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://beddingwebstore-production.up.railway.app']
 
 
 # Application definition
