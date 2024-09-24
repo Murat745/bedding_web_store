@@ -12,14 +12,14 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
-#from dotenv import load_dotenv
-#load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-DB_PASSWORD_MINE = os.environ['DB_PASSWORD_MINE']
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -29,8 +29,8 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['beddingwebstore-production.up.railway.app', 'https://beddingwebstore-production.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['https://beddingwebstore-production.up.railway.app']
+ALLOWED_HOSTS = ['*']#['beddingwebstore-production.up.railway.app', 'https://beddingwebstore-production.up.railway.app']
+#CSRF_TRUSTED_ORIGINS = #['https://beddingwebstore-production.up.railway.app']
 
 
 # Application definition
@@ -87,11 +87,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': DB_PASSWORD_MINE,
-        'HOST': 'autorack.proxy.rlwy.net',
-        'PORT': '41602',  
+        'NAME': os.getenv('PG_DB_NAME'),
+        'USER': os.getenv('PG_DB_USER'),
+        'PASSWORD': os.getenv('DB_PASS'),
+        'HOST': os.getenv('PG_DB_HOST'),
+        'PORT': os.getenv('PG_DB_PORT'),  
     }
 }
 
