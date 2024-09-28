@@ -29,8 +29,8 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_SECRET_KEY')
 
-ALLOWED_HOSTS = ['*'] #['beddingwebstore-production.up.railway.app', 'https://beddingwebstore-production.up.railway.app']
-#CSRF_TRUSTED_ORIGINS = ['https://beddingwebstore-production.up.railway.app']
+ALLOWED_HOSTS = ['beddingwebstore-production.up.railway.app', 'https://beddingwebstore-production.up.railway.app', 'localhost']
+CSRF_TRUSTED_ORIGINS = ['https://beddingwebstore-production.up.railway.app']
 
 
 # Application definition
